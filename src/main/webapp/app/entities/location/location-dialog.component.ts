@@ -9,6 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Location } from './location.model';
 import { LocationPopupService } from './location-popup.service';
 import { LocationService } from './location.service';
+import { LocationCaptureComponent } from './location-capture.component';
 
 @Component({
     selector: 'jhi-location-dialog',
@@ -18,12 +19,13 @@ export class LocationDialogComponent implements OnInit {
 
     location: Location;
     isSaving: boolean;
-
+    serviceId: number;
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private locationService: LocationService,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        private locationCapture: LocationCaptureComponent
     ) {
     }
 
@@ -36,6 +38,7 @@ export class LocationDialogComponent implements OnInit {
     }
 
     save() {
+        this.locationCapture.stopEditing();
         this.isSaving = true;
         if (this.location.id !== undefined) {
             this.subscribeToSaveResponse(
@@ -45,14 +48,37 @@ export class LocationDialogComponent implements OnInit {
                 this.locationService.create(this.location));
         }
     }
+    startEditing() {
+        if (this.serviceId != null) {
+            return;
+        }
+        if (navigator.geolocation) {
+            let options = {
+                enableHighAccuracy: true,
+                timeout: 100000,
+                maximumAge: 0
+            };
+            this.serviceId = navigator.geolocation.watchPosition((position) => {
+                let currentVal= this.location.coordinatesAsString;
+                this.location.coordinatesAsString=currentVal+"~lat:" + position.coords.latitude + "^long:" + position.coords.longitude;
+                console.log("position:" + "~lat:" + position.coords.latitude + "^long:" + position.coords.longitude);
+              }, this.onError, options);
+        } else {
+            console.log("Geo location not supported");
+        }
+    }
 
+    stopEditing() {
+        navigator.geolocation.clearWatch(this.serviceId);
+        this.serviceId = null;
+    }
     private subscribeToSaveResponse(result: Observable<Location>) {
         result.subscribe((res: Location) =>
             this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
     private onSaveSuccess(result: Location) {
-        this.eventManager.broadcast({ name: 'locationListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'locationListModification', content: 'OK' });
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -62,7 +88,10 @@ export class LocationDialogComponent implements OnInit {
     }
 
     private onError(error: any) {
-        this.alertService.error(error.message, null, null);
+        console.log("error.message" + error.message);
+        if (this != null) {
+            this.alertService.error(error.message, null, null);
+        }
     }
 }
 
@@ -77,11 +106,11 @@ export class LocationPopupComponent implements OnInit, OnDestroy {
     constructor(
         private route: ActivatedRoute,
         private locationPopupService: LocationPopupService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
-            if ( params['id'] ) {
+            if (params['id']) {
                 this.locationPopupService
                     .open(LocationDialogComponent as Component, params['id']);
             } else {
