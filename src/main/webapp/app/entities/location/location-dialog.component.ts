@@ -9,8 +9,7 @@ import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { Location } from './location.model';
 import { LocationPopupService } from './location-popup.service';
 import { LocationService } from './location.service';
-import { Coordinates, CoordinatesService } from '../coordinates';
-import { ResponseWrapper } from '../../shared';
+
 
 @Component({
     selector: 'jhi-location-dialog',
@@ -21,13 +20,12 @@ export class LocationDialogComponent implements OnInit {
     location: Location;
     isSaving: boolean;
 
-    coordinates: Coordinates[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
         private locationService: LocationService,
-        private coordinatesService: CoordinatesService,
+
         private eventManager: JhiEventManager
     ) {
     }
@@ -70,10 +68,7 @@ export class LocationDialogComponent implements OnInit {
 
     private onError(error: any) {
         this.alertService.error(error.message, null, null);
-    }
 
-    trackCoordinatesById(index: number, item: Coordinates) {
-        return item.id;
     }
 }
 
