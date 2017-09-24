@@ -31,20 +31,7 @@ public class Location implements Serializable {
     @Column(name = "coordinates")
     private String coordinates;
 
-    @ManyToOne
-    private Coordinates coords;
-
-    @OneToMany(mappedBy = "location")
-    @JsonIgnore
-    private Set<Coordinates> coords = new HashSet<>();
-
-    @OneToMany(mappedBy = "location")
-    @JsonIgnore
-    private Set<N> bs = new HashSet<>();
-
-    @OneToMany(mappedBy = "cc")
-    @JsonIgnore
-    private Set<C> cs = new HashSet<>();
+    
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -94,93 +81,6 @@ public class Location implements Serializable {
         this.coordinates = coordinates;
     }
 
-    public Coordinates getCoords() {
-        return coords;
-    }
-
-    public Location coords(Coordinates coordinates) {
-        this.coords = coordinates;
-        return this;
-    }
-
-    public void setCoords(Coordinates coordinates) {
-        this.coords = coordinates;
-    }
-
-    public Set<Coordinates> getCoords() {
-        return coords;
-    }
-
-    public Location coords(Set<Coordinates> coordinates) {
-        this.coords = coordinates;
-        return this;
-    }
-
-    public Location addCoords(Coordinates coordinates) {
-        this.coords.add(coordinates);
-        coordinates.setLocation(this);
-        return this;
-    }
-
-    public Location removeCoords(Coordinates coordinates) {
-        this.coords.remove(coordinates);
-        coordinates.setLocation(null);
-        return this;
-    }
-
-    public void setCoords(Set<Coordinates> coordinates) {
-        this.coords = coordinates;
-    }
-
-    public Set<N> getBs() {
-        return bs;
-    }
-
-    public Location bs(Set<N> ns) {
-        this.bs = ns;
-        return this;
-    }
-
-    public Location addB(N n) {
-        this.bs.add(n);
-        n.setLocation(this);
-        return this;
-    }
-
-    public Location removeB(N n) {
-        this.bs.remove(n);
-        n.setLocation(null);
-        return this;
-    }
-
-    public void setBs(Set<N> ns) {
-        this.bs = ns;
-    }
-
-    public Set<C> getCs() {
-        return cs;
-    }
-
-    public Location cs(Set<C> cs) {
-        this.cs = cs;
-        return this;
-    }
-
-    public Location addC(C c) {
-        this.cs.add(c);
-        c.setCc(this);
-        return this;
-    }
-
-    public Location removeC(C c) {
-        this.cs.remove(c);
-        c.setCc(null);
-        return this;
-    }
-
-    public void setCs(Set<C> cs) {
-        this.cs = cs;
-    }
     // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override

@@ -10,7 +10,6 @@ import { Location } from './location.model';
 import { LocationPopupService } from './location-popup.service';
 import { LocationService } from './location.service';
 
-
 @Component({
     selector: 'jhi-location-dialog',
     templateUrl: './location-dialog.component.html'

@@ -21,9 +21,20 @@
             <label class="form-control-label" for="field_coordinatesAsString">Coordinates As String</label>
             <input type="text" class="form-control" name="coordinatesAsString" id="field_coordinatesAsString"
                 [(ngModel)]="location.coordinatesAsString"  />
-
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="field_coordinates">Coordinates</label>
+            <input type="text" class="form-control" name="coordinates" id="field_coordinates"
+                [(ngModel)]="location.coordinates"  />
         </div>
 
+        <div class="form-group">
+            <label class="form-control-label" for="field_coords">Coords</label>
+            <select class="form-control" id="field_coords" name="coords" [(ngModel)]="location.coords" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="coordinatesOption.id === location.coords?.id ? location.coords : coordinatesOption" *ngFor="let coordinatesOption of coordinates; trackBy: trackCoordinatesById">{{coordinatesOption.latLong}}</option>
+            </select>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
