@@ -31,8 +31,7 @@ export class LocationDialogComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
-        this.coordinatesService.query()
-            .subscribe((res: ResponseWrapper) => { this.coordinates = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+       
     }
 
     clear() {
