@@ -14,26 +14,14 @@
     <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
 
     <!--
-        Added the entity Location.
+        Added the entity Coordinates.
     -->
-    <changeSet id="20170922214710-1" author="jhipster">
-        <createTable tableName="location">
+    <changeSet id="20170924120313-1" author="jhipster">
+        <createTable tableName="coordinates">
             <column name="id" type="bigint" autoIncrement="${autoIncrement}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="coordinates_as_string" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="coordinates" type="varchar(255)">
-                <constraints nullable="true" />
-            </column>
-
-            <column name="coords_id" type="bigint">
+            <column name="location_id" type="bigint">
                 <constraints nullable="true" />
             </column>
 

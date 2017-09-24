@@ -5,6 +5,10 @@ export class Location implements BaseEntity {
         public id?: number,
         public name?: string,
         public coordinatesAsString?: string,
+        public coordinates?: string,
+        public coords?: BaseEntity[],
+        public bs?: BaseEntity[],
+        public cs?: BaseEntity[],
     ) {
     }
 }

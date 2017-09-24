@@ -6,7 +6,6 @@ import {
     LocationService,
     LocationPopupService,
     LocationComponent,
-    LocationCaptureComponent,
     LocationDetailComponent,
     LocationDialogComponent,
     LocationPopupComponent,
@@ -28,7 +27,6 @@ const ENTITY_STATES = [
     ],
     declarations: [
         LocationComponent,
-        LocationCaptureComponent,
         LocationDetailComponent,
         LocationDialogComponent,
         LocationDeleteDialogComponent,
@@ -45,7 +43,6 @@ const ENTITY_STATES = [
     providers: [
         LocationService,
         LocationPopupService,
-        LocationCaptureComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

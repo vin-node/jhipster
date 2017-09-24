@@ -6,36 +6,36 @@ import { Observable } from 'rxjs/Rx';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 
-import { Location } from './location.model';
-import { LocationPopupService } from './location-popup.service';
-import { LocationService } from './location.service';
-import { Coordinates, CoordinatesService } from '../coordinates';
+import { Coordinates } from './coordinates.model';
+import { CoordinatesPopupService } from './coordinates-popup.service';
+import { CoordinatesService } from './coordinates.service';
+import { Location, LocationService } from '../location';
 import { ResponseWrapper } from '../../shared';
 
 @Component({
-    selector: 'jhi-location-dialog',
-    templateUrl: './location-dialog.component.html'
+    selector: 'jhi-coordinates-dialog',
+    templateUrl: './coordinates-dialog.component.html'
 })
-export class LocationDialogComponent implements OnInit {
+export class CoordinatesDialogComponent implements OnInit {
 
-    location: Location;
+    coordinates: Coordinates;
     isSaving: boolean;
 
-    coordinates: Coordinates[];
+    locations: Location[];
 
     constructor(
         public activeModal: NgbActiveModal,
         private alertService: JhiAlertService,
-        private locationService: LocationService,
         private coordinatesService: CoordinatesService,
+        private locationService: LocationService,
         private eventManager: JhiEventManager
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
-        this.coordinatesService.query()
-            .subscribe((res: ResponseWrapper) => { this.coordinates = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
+        this.locationService.query()
+            .subscribe((res: ResponseWrapper) => { this.locations = res.json; }, (res: ResponseWrapper) => this.onError(res.json));
     }
 
     clear() {
@@ -44,22 +44,22 @@ export class LocationDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        if (this.location.id !== undefined) {
+        if (this.coordinates.id !== undefined) {
             this.subscribeToSaveResponse(
-                this.locationService.update(this.location));
+                this.coordinatesService.update(this.coordinates));
         } else {
             this.subscribeToSaveResponse(
-                this.locationService.create(this.location));
+                this.coordinatesService.create(this.coordinates));
         }
     }
 
-    private subscribeToSaveResponse(result: Observable<Location>) {
-        result.subscribe((res: Location) =>
+    private subscribeToSaveResponse(result: Observable<Coordinates>) {
+        result.subscribe((res: Coordinates) =>
             this.onSaveSuccess(res), (res: Response) => this.onSaveError());
     }
 
-    private onSaveSuccess(result: Location) {
-        this.eventManager.broadcast({ name: 'locationListModification', content: 'OK'});
+    private onSaveSuccess(result: Coordinates) {
+        this.eventManager.broadcast({ name: 'coordinatesListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -72,32 +72,32 @@ export class LocationDialogComponent implements OnInit {
         this.alertService.error(error.message, null, null);
     }
 
-    trackCoordinatesById(index: number, item: Coordinates) {
+    trackLocationById(index: number, item: Location) {
         return item.id;
     }
 }
 
 @Component({
-    selector: 'jhi-location-popup',
+    selector: 'jhi-coordinates-popup',
     template: ''
 })
-export class LocationPopupComponent implements OnInit, OnDestroy {
+export class CoordinatesPopupComponent implements OnInit, OnDestroy {
 
     routeSub: any;
 
     constructor(
         private route: ActivatedRoute,
-        private locationPopupService: LocationPopupService
+        private coordinatesPopupService: CoordinatesPopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe((params) => {
             if ( params['id'] ) {
-                this.locationPopupService
-                    .open(LocationDialogComponent as Component, params['id']);
+                this.coordinatesPopupService
+                    .open(CoordinatesDialogComponent as Component, params['id']);
             } else {
-                this.locationPopupService
-                    .open(LocationDialogComponent as Component);
+                this.coordinatesPopupService
+                    .open(CoordinatesDialogComponent as Component);
             }
         });
     }

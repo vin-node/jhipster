@@ -1,10 +1,10 @@
 <div>
     <h2>
-        <span>Locations</span>
-        <button class="btn btn-primary float-right jh-create-entity create-location" [routerLink]="['/', { outlets: { popup: ['location-new'] } }]">
+        <span>Coordinates</span>
+        <button class="btn btn-primary float-right jh-create-entity create-coordinates" [routerLink]="['/', { outlets: { popup: ['coordinates-new'] } }]">
             <span class="fa fa-plus"></span>
             <span >
-            Create new Location
+            Create new Coordinates
             </span>
         </button>
     </h2>
@@ -12,46 +12,40 @@
     <div class="row">
     </div>
     <br/>
-    <div class="table-responsive" *ngIf="locations">
+    <div class="table-responsive" *ngIf="coordinates">
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="name"><span>Name</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="coordinatesAsString"><span>Coordinates As String</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="coordinates"><span>Coordinates</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="coords.latLong"><span>Coords</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="locationId"><span>Location</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let location of locations ;trackBy: trackId">
-                <td><a [routerLink]="['../location', location.id ]">{{location.id}}</a></td>
-                <td>{{location.name}}</td>
-                <td>{{location.coordinatesAsString}}</td>
-                <td>{{location.coordinates}}</td>
+            <tr *ngFor="let coordinates of coordinates ;trackBy: trackId">
+                <td><a [routerLink]="['../coordinates', coordinates.id ]">{{coordinates.id}}</a></td>
                 <td>
-                    <div *ngIf="location.coords">
-                        <a [routerLink]="['../coordinates', location.coords?.id ]" >{{location.coords?.latLong}}</a>
+                    <div *ngIf="coordinates.locationId">
+                        <a [routerLink]="['../location', coordinates.locationId  ]" >{{coordinates.locationId}}</a>
                     </div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
-                                [routerLink]="['../location', location.id ]"
+                                [routerLink]="['../coordinates', coordinates.id ]"
                                 class="btn btn-info btn-sm">
                             <span class="fa fa-eye"></span>
                             <span class="d-none d-md-inline">View</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'location/'+ location.id + '/edit'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'coordinates/'+ coordinates.id + '/edit'} }]"
                                 replaceUrl="true"
                                 class="btn btn-primary btn-sm">
                             <span class="fa fa-pencil"></span>
                             <span class="d-none d-md-inline">Edit</span>
                         </button>
                         <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'location/'+ location.id + '/delete'} }]"
+                                [routerLink]="['/', { outlets: { popup: 'coordinates/'+ coordinates.id + '/delete'} }]"
                                 replaceUrl="true"
                                 class="btn btn-danger btn-sm">
                             <span class="fa fa-remove"></span>

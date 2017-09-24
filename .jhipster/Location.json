@@ -1,6 +1,31 @@
 {
     "fluentMethods": true,
-    "relationships": [],
+    "relationships": [
+        {
+            "relationshipName": "coords",
+            "otherEntityName": "coordinates",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "latLong"
+        },
+        {
+            "relationshipName": "coords",
+            "otherEntityName": "coordinates",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "location"
+        },
+        {
+            "relationshipName": "b",
+            "otherEntityName": "n",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "location"
+        },
+        {
+            "relationshipName": "c",
+            "otherEntityName": "c",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "cc"
+        }
+    ],
     "fields": [
         {
             "fieldName": "name",
@@ -9,6 +34,10 @@
         },
         {
             "fieldName": "coordinatesAsString",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "coordinates",
             "fieldType": "String"
         }
     ],

@@ -1,0 +1,18 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "location",
+            "otherEntityName": "location",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170924120313",
+    "dto": "mapstruct",
+    "service": "no",
+    "entityTableName": "coordinates",
+    "jpaMetamodelFiltering": false,
+    "pagination": "infinite-scroll"
+}

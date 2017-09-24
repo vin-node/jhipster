@@ -12,6 +12,16 @@
         <dd>
             <span>{{location.coordinatesAsString}}</span>
         </dd>
+        <dt><span>Coordinates</span></dt>
+        <dd>
+            <span>{{location.coordinates}}</span>
+        </dd>
+        <dt><span>Coords</span></dt>
+        <dd>
+            <div *ngIf="location.coords">
+                <a [routerLink]="['/coordinates', location.coords?.id]">{{location.coords?.latLong}}</a>
+            </div>
+        </dd>
     </dl>
 
     <button type="submit"
