@@ -1,0 +1,64 @@
+<div>
+    <h2>
+        <span>Geo Coordinates</span>
+        <button class="btn btn-primary float-right jh-create-entity create-geo-coordinate" [routerLink]="['/', { outlets: { popup: ['geo-coordinate-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span >
+            Create new Geo Coordinate
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="geoCoordinates">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lat"><span>Lat</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lon"><span>Lon</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="location.id"><span>Location</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let geoCoordinate of geoCoordinates ;trackBy: trackId">
+                <td><a [routerLink]="['../geo-coordinate', geoCoordinate.id ]">{{geoCoordinate.id}}</a></td>
+                <td>{{geoCoordinate.lat}}</td>
+                <td>{{geoCoordinate.lon}}</td>
+                <td>
+                    <div *ngIf="geoCoordinate.location">
+                        <a [routerLink]="['../location', geoCoordinate.location?.id ]" >{{geoCoordinate.location?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../geo-coordinate', geoCoordinate.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'geo-coordinate/'+ geoCoordinate.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'geo-coordinate/'+ geoCoordinate.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

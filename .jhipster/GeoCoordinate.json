@@ -1,0 +1,27 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "location",
+            "otherEntityName": "location",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "lat",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "lon",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20170925030644",
+    "dto": "no",
+    "service": "serviceImpl",
+    "entityTableName": "geo_coordinate",
+    "jpaMetamodelFiltering": false,
+    "pagination": "infinite-scroll"
+}
