@@ -9,6 +9,7 @@ export class Location implements BaseEntity {
         public coords?: BaseEntity[],
         public bs?: BaseEntity[],
         public cs?: BaseEntity[],
+        public geoCordinates?: BaseEntity[],
     ) {
     }
 }

@@ -24,6 +24,12 @@
             "otherEntityName": "c",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "cc"
+        },
+        {
+            "relationshipName": "geoCordinate",
+            "otherEntityName": "geoCordinate",
+            "relationshipType": "one-to-many",
+            "otherEntityRelationshipName": "location"
         }
     ],
     "fields": [

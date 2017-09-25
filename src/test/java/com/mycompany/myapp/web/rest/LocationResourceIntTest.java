@@ -84,7 +84,8 @@ public class LocationResourceIntTest {
     public static Location createEntity(EntityManager em) {
         Location location = new Location()
             .name(DEFAULT_NAME)
-            .coordinatesAsString(DEFAULT_COORDINATES_AS_STRING);
+            .coordinatesAsString(DEFAULT_COORDINATES_AS_STRING)
+            .coordinates(DEFAULT_COORDINATES);
         return location;
     }
 
@@ -110,6 +111,7 @@ public class LocationResourceIntTest {
         Location testLocation = locationList.get(locationList.size() - 1);
         assertThat(testLocation.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testLocation.getCoordinatesAsString()).isEqualTo(DEFAULT_COORDINATES_AS_STRING);
+        assertThat(testLocation.getCoordinates()).isEqualTo(DEFAULT_COORDINATES);
     }
 
     @Test
@@ -182,7 +184,8 @@ public class LocationResourceIntTest {
         Location updatedLocation = locationRepository.findOne(location.getId());
         updatedLocation
             .name(UPDATED_NAME)
-            .coordinatesAsString(UPDATED_COORDINATES_AS_STRING);
+            .coordinatesAsString(UPDATED_COORDINATES_AS_STRING)
+            .coordinates(UPDATED_COORDINATES);
 
         restLocationMockMvc.perform(put("/api/locations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -195,6 +198,7 @@ public class LocationResourceIntTest {
         Location testLocation = locationList.get(locationList.size() - 1);
         assertThat(testLocation.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testLocation.getCoordinatesAsString()).isEqualTo(UPDATED_COORDINATES_AS_STRING);
+        assertThat(testLocation.getCoordinates()).isEqualTo(UPDATED_COORDINATES);
     }
 
     @Test
