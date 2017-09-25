@@ -28,10 +28,7 @@ public class Location implements Serializable {
     @Column(name = "coordinates_as_string")
     private String coordinatesAsString;
 
-    @Column(name = "coordinates")
-    private String coordinates;
-
-    
+      
 
     // jhipster-needle-entity-add-field - Jhipster will add fields here, do not remove
     public Long getId() {
@@ -68,19 +65,6 @@ public class Location implements Serializable {
         this.coordinatesAsString = coordinatesAsString;
     }
 
-    public String getCoordinates() {
-        return coordinates;
-    }
-
-    public Location coordinates(String coordinates) {
-        this.coordinates = coordinates;
-        return this;
-    }
-
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
-    }
-
     // jhipster-needle-entity-add-getters-setters - Jhipster will add getters and setters here, do not remove
 
     @Override
@@ -109,7 +93,6 @@ public class Location implements Serializable {
             "id=" + getId() +
             ", name='" + getName() + "'" +
             ", coordinatesAsString='" + getCoordinatesAsString() + "'" +
-            ", coordinates='" + getCoordinates() + "'" +
             "}";
     }
 }
